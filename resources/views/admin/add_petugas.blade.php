@@ -44,7 +44,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="">Home</a></li>
-                        <li class="breadcrumb-item active">Kegiatan Harian</li>
+                        <li class="breadcrumb-item active">User</li>
                     </ol>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                             <select class="form-control form-select" name="role" required>
                                 <option value="" selected disabled>Pilih</option>
                                 <option value="admin">admin</option>
-                                <option value="petugas">petugas</option>
+                                <option value="petugas">Kasir</option>
                             </select>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                             <select id="roleedit" class="form-control form-select" name="role" required>
                                 <option value="" selected disabled>Pilih</option>
                                 <option value="admin">admin</option>
-                                <option value="petugas">petugas</option>
+                                <option value="petugas">Kasir</option>
                             </select>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table" id="userTable">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px" class="text-center">No</th>
@@ -262,8 +262,22 @@
     <!-- /.content -->
 @endsection
 
-@section('cotumJs')
+@section('costumJs')
     <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var searchValue = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#userTable tbody tr");
+            
+            rows.forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
         $('.btn-edit').click(function() {
             var url = $(this).data('url');
             $('#modaledit #id').val('')

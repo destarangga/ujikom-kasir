@@ -31,14 +31,17 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('produk-update', ['id' => $produk->produk_id]) }}" method="POST">
+                        <form action="{{ route('produk-update', ['id' => $produk->produk_id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Gambar Produk</label>
-                                    <input type="file" name="img-produk" class="form-control" id=""
-                                        value="Input hanya nomber">
+                                    <input type="file" name="image" class="form-control" id="" value="
+                                    {{ asset('image/produk/' . $produk->image) }}">
+                                    @if ($produk->image)
+                                    <img src="{{ asset('image/produk/' . $produk->image) }}" alt="Product Image" style="max-width: 200px;">
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Produk</label>
@@ -54,6 +57,10 @@
                                     <label for="exampleInputEmail1">Stok</label>
                                     <input type="number" name="stok" class="form-control" id=""
                                         value="{{ $produk->stok }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Deskripsi</label>
+                                    <textarea rows="5" name="deskripsi" class="form-control" id="deskripsi" placeholder="Deskripsi Produk">{{ $produk->deskripsi }}</textarea>
                                 </div>
                             </div>
                             <!-- /.card-body -->

@@ -73,8 +73,8 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
+                                    <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                        aria-label="Search" id="searchInput">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -87,8 +87,6 @@
                         </form>
                     </div>
                 </li>
-
-
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -119,7 +117,7 @@
                         <div class="dropdown notification-list nav-pro-img">
                             <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown"
                                 href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                Petugas
+                                Kasir
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">

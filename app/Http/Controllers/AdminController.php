@@ -37,7 +37,7 @@ class AdminController extends Controller
         $data['password'] = Hash::make(request()->input('password'));
         // dd($data);
         User::create($data);
-        return redirect()->route('add_petugas')->with('success', 'Kegiatan mingguan berhasil ditambahkan');
+        return redirect()->route('add_petugas')->with('create', 'Kasir Berhasil di Tambahkan');
     }
 
     public function getUser($id)

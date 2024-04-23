@@ -13,6 +13,8 @@ class Penjualan extends Model
     protected $fillable = [
         'tanggal_penjualan',
         'total_harga',
+        'bayar',
+        'kembalian',
         'pelanggan_id',
         'produk_id', // Menambahkan kolom produk_id ke dalam $fillable jika belum ada
     ];

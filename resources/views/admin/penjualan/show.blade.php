@@ -29,32 +29,49 @@
                                 <a href="{{ route('penjualan-create') }}">
                                     <button class="btn btn-sm btn-primary" style="float: right">Tambah</button>
                                 </a>
-                                <a href="{{ route('pdf-detail') }}">
+                                <a href="{{ route('penjualan.pdf', ['id' => $penjualans->first()->penjualan_id]) }}">
                                     <button class="btn btn-sm btn-danger" style="float: center">export PDF</button>
                                 </a>
                             @endif
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @foreach ($penjualans as $penjualan)
-                                <div class="penjualan">
-                                    @if ($penjualan->produk->count() > 0)
-                                        <p><strong>Nama Produk:</strong>
-                                            @foreach ($penjualan->produk as $produk)
-                                                {{ $produk->nama_produk }}{{ !$loop->last ? ',' : '' }}
-                                            @endforeach
-                                        </p>
-                                    @else
-                                        <p><strong>Nama Produk:</strong> Not available</p>
-                                    @endif
-                                    <!-- <p><strong>Nama Pelanggan:</strong> {{ $penjualan->nama_pelanggan}}</p>
-                                    <p><strong>Alamat:</strong> {{ $penjualan->alamat }}</p>
-                                    <p><strong>Nomor Telp:</strong> {{ $penjualan->no_telp }}</p> -->
-                                    <p><strong>Jumlah Produk:</strong> {{ $penjualan->jumlah_produk }}</p>
-                                    <p><strong>Subtotal:</strong> Rp.{{ number_format($penjualan->subtotal, 0, ',', '.') }}</p>
-                                </div>
-                            @endforeach
+                            <p><strong>Nama Pelanggan:</strong> {{ $pelanggan->nama_pelanggan }}</p>
+                            <p><strong>Alamat:</strong> {{ $pelanggan->alamat }}</p>
+                            <p><strong>Nomor Telp:</strong> {{ $pelanggan->no_tlp }}</p>
+                            <p><strong>Detail Penjualan:</strong></p>
+                            <table class="table" id="detailTable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Produk</th>
+                                        <th>Harga</th>
+                                        <th>Jumlah</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($penjualans as $index => $detail)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $detail->penjualan->tanggal_penjualan }}</td>
+                                            <input type="hidden" name="tanggal_penjualan" id="tanggal_penjualan" value="hiddenValue">
+                                            <td>{{ $detail->produk->nama_produk }}</td>
+                                            <input type="hidden" name="nama_produk" id="nama_produk" value="hiddenValue">
+                                            <td>{{ $detail->produk->harga }}</td>
+                                            <input type="hidden" name="harga" id="harga" value="hiddenValue">
+                                            <td>{{ $detail->jumlah_produk }}</td>
+                                            <input type="hidden" name="jumlah_produk" id="jumlah_produk" value="hiddenValue">
+                                            <td>{{ $detail->subtotal }}</td>
+                                            <input type="hidden" name="subtotal" id="subtotal" value="hiddenValue">
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            
                         </div>
+
                         <!-- /.card-body -->
                         <!-- /.card -->
                         @if (Auth::user()->role == 'admin')
@@ -73,10 +90,26 @@
             </div>
         </div>
     </section>
+@endsection
     <!-- /.content -->
-
+    @section('costumJs')
     <!-- JavaScript -->
     <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            console.log("Input event triggered");
+            var searchValue = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#detailTable tbody tr");
+            
+            rows.forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = "rows";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
         $(document).ready(function() {
             $('.btn-detail').click(function() {
                 var url = $(this).data('url');

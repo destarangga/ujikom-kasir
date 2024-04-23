@@ -26,6 +26,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/reg', [AuthController::class, 'reg']);
 
+
 Route::group(['middleware' => 'role:admin'], function () {
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-dashboard');
 
@@ -43,10 +44,10 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::put('/produk-restok/{id}', [ProdukController::class,'reStok'])->name('produk-restok');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk-update');
     Route::delete('/produk-delete/{id}', [ProdukController::class, 'delete'])->name('produk-delete');
-
+    
     Route::get('/penjualan-admin', [PenjualanController::class, 'index'])->name('penjualan-admin');
     Route::get('/penjualan-admin/{id}/show', [DetailPenjualanController::class, 'show'])->name('admin-detail-penjualan');
-    Route::get('/generate-pdf', [DetailPenjualanController::class, 'generatePDF'])->name('pdf-detail');
+    Route::get('/penjualan/{id}/pdf', [DetailPenjualanController::class, 'generatePDF'])->name('penjualan.pdf');
 });
 
 Route::group(['middleware' => 'role:petugas'], function () {
@@ -61,6 +62,6 @@ Route::group(['middleware' => 'role:petugas'], function () {
     Route::get('/penjualan-petugas/{id}', [DetailPenjualanController::class, 'show'])->name('detail-penjualan-petugas');
     Route::put('/penjualan/{id}', [PenjualanController::class, 'update'])->name('penjualan-update');
     Route::delete('/penjualan/{id}', [PenjualanController::class, 'delete'])->name('penjualan-delete');
-    Route::get('/generate-pdf', [DetailPenjualanController::class, 'generatePDF'])->name('pdf-detail');
+    Route::get('/penjualan/{id}/pdf', [DetailPenjualanController::class, 'generatePDF'])->name('penjualan.pdf');
 
 });

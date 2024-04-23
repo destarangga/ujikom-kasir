@@ -63,14 +63,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table" id="penjualanTable">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px" class="text-center">No</th>
                                         <th style="width: 10px" class="text-center">Tanggal</th>
+                                        <th style="width: 10px" class="text-center">Waktu</th>
                                         <th style="width: 10px" class="text-center">Pelanggan</th>
-                                        <th style="width: 10px" class="text-center">Alamat</th>
-                                        <th style="width: 10px" class="text-center">No Telepon</th>
+                                        {{-- <th style="width: 10px" class="text-center">Alamat</th>
+                                        <th style="width: 10px" class="text-center">No Telepon</th> --}}
                                         <th style="width: 10px" class="text-center">Total</th>
                                         <th style="width: 30px" class="text-center">Action</th>
                                     </tr>
@@ -80,12 +81,20 @@
                                     @foreach ($penjualans as $penjualan)
                                         <tr>
                                             <td class="text-center">{{ $no++ }}</td>
-                                            <td class="text-center">{{ $penjualan->tanggal_penjualan }}</td>
-                                            <td class="text-center">{{ $penjualan->pelanggan->nama_pelanggan }}</td>
-                                            <td class="text-center">{{ $penjualan->pelanggan->alamat }}</td>
-                                            <td class="text-center">{{ $penjualan->pelanggan->no_tlp }}</td>
+                                            <td class="text-center">{{ $penjualan->tanggal_penjualan }}
+                                                <input type="hidden" name="tanggal_penjualan" id="tanggal_penjualan" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center">{{ $penjualan->created_at->setTimeZone('Asia/Jakarta')->format('H:i:s')}}</td>
+                                                <input type="hidden" name="created_at" id="created_at" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center">{{ $penjualan->pelanggan->nama_pelanggan }}
+                                                <input type="hidden" name="nama_pelanggan" id="nama_pelanggan" value="hiddenValue">
+                                            </td>
+                                            {{-- <td class="text-center">{{ $penjualan->pelanggan->alamat }}</td>
+                                            <td class="text-center">{{ $penjualan->pelanggan->no_tlp }}</td> --}}
                                             <td class="text-center">
                                                 Rp.{{ number_format($penjualan->total_harga, 0, ',', '.') }}
+                                                <input type="hidden" name="total_harga" id="total_harga" value="hiddenValue">
                                             </td>
                                             <td class="d-flex justify-content-center">
                                                 @if (Auth::user()->role == 'petugas')
@@ -141,9 +150,25 @@
 
 @endsection
 
-@section('customJs')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@section('costumJs')
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
+        console.log('abc')
+        document.getElementById("searchInput").addEventListener("input", function() {
+            console.log("Input event triggered");
+            var searchValue = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#penjualanTable tbody tr");
+            
+            rows.forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = "rows";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
         $(document).ready(function() {
             $('.btn-detail').click(function() {
                 var url = $(this).data('url');

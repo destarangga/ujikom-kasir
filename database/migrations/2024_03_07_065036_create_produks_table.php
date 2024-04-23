@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('harga', 10, 2);
             $table->integer('stok');
             $table->string('image')->nullable(); // Tambahkan kolom image
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }

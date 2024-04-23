@@ -34,8 +34,11 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Gambar Produk</label>
-                                <input type="file" name="img-produk" class="form-control" id="" value=""
+                                <input type="file" name="image" class="form-control" id="image" value=""
                                     disabled>
+                                    @if ($produk->image)
+                                    <img src="{{ asset('image/produk/' . $produk->image) }}" alt="Product Image" style="max-width: 200px;">
+                                    @endif
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Produk</label>
@@ -51,6 +54,10 @@
                                 <label for="exampleInputEmail1">Stok</label>
                                 <input type="number" name="stok" class="form-control" id=""
                                     value="{{ $produk->stok }}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Deskripsi</label>
+                                <textarea rows="5" name="deskripsi" class="form-control" id="deskripsi" placeholder="Deskripsi Produk">{{ $produk->deskripsi }}</textarea>
                             </div>
                         </div>
                         <!-- /.card-body -->

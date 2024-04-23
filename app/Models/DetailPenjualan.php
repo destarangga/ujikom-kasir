@@ -12,6 +12,7 @@ class DetailPenjualan extends Model
     protected $primaryKey = 'detail_id';
     protected $fillable = [
         'penjualan_id',
+        'pelanggan_id',
         'produk_id',
         'jumlah_produk',
         'subtotal'
@@ -21,12 +22,12 @@ class DetailPenjualan extends Model
         return $this->belongsTo(Penjualan::class, 'penjualan_id', 'penjualan_id');
     }
     
-    // public function pelanggan()
-    // {
-    //     return $this->belongsTo(Pelanggan::class, 'pelanggan_id', 'pelanggan_id');
-    // }
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class, 'pelanggan_id', 'pelanggan_id');
+    }
 
     public function produk(){
-        return $this->hasMany(produk::class, 'produk_id', 'produk_id');
+        return $this->hasOne(produk::class, 'produk_id', 'produk_id');
     }
 }

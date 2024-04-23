@@ -79,7 +79,7 @@
         <a href="index3.html" class="brand-link">
             <img src="{{ asset('admin/dist/img/kasir.jpg') }}" alt="Kasir"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Petugas</span>
+            <span class="brand-text font-weight-light">Kasir</span>
         </a>
 
         <!-- Sidebar -->

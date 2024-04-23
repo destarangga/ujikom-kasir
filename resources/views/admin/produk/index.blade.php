@@ -67,14 +67,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table" id="produkTable">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px" class="text-center">No</th>
                                         <th style="width: 10px" class="text-center">Produk</th>
                                         <th style="width: 10px" class="text-center">Harga</th>
                                         <th style="width: 10px" class="text-center">Stok</th>
-                                        <!-- <th style="width: 10px" class="text-center">Foto</th> -->
+                                        <th style="width: 10px" class="text-center">Deskripsi</th>
+                                        <th style="width: 10px" class="text-center">Foto</th>
                                         <th style="width: 30px" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -87,10 +88,22 @@
                                     @foreach ($produks as $produk)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $produk->nama_produk }}</td>
-                                            <td class="text-center">Rp.{{ number_format($produk->harga, 0, ',', '.') }}</td>
-                                            <td class="text-center">{{ $produk->stok }}</td>
-                                            <!-- <td><img src="data:image/png;base64,{{$produk->Image}}" alt="Gambar Produk" style="width: 200px; height: auto;"></td> -->
+                                            <td class="text-center" id="td:nth-child(2)">{{ $produk->nama_produk }}
+                                                <input type="hidden" name="nama_produk" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center" id="td:nth-child(3)">Rp.{{ number_format($produk->harga, 0, ',', '.') }}
+                                                <input type="hidden" name="harga" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center" id="td:nth-child(4)">{{ $produk->stok }}
+                                                <input type="hidden" name="stok" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center" id="td:nth-child(5)">{{ $produk->deskripsi }}
+                                                <input type="hidden" name="deskripsi" value="hiddenValue">
+                                            </td>
+                                            <td class="text-center">
+                                                <img src="{{ url('image/produk/', $produk->image) }}" alt="Product Image" style="max-width: 100px;">
+                                            </td>      
+                                                  
                                             <td class="d-flex justify-content-center">
                                                 @if (Auth::user()->role == 'admin')
                                                     <div class="button-container">
@@ -192,8 +205,22 @@
     <!-- /.content -->
 @endsection
 
-@section('cotumJs')
+@section('costumJs')
     <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var searchValue = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#produkTable tbody tr");
+            
+            rows.forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
         function confirmDelete(id) {
             Swal.fire({
                 title: "Serius ingin menghapus?",

@@ -15,11 +15,12 @@ class Produk extends Model
         'nama_produk',
         'harga',
         'stok',
-        'image', 
+        'image',
+        'deskripsi' 
     ];
 
-    public function detailPenjualan()
+    public function detailPenjualans()
     {
-        return $this->belongsTo(DetailPenjualan::class, 'produk_id', 'produk_id');
+        return $this->hasMany(DetailPenjualan::class, 'produk_id');
     }
 }

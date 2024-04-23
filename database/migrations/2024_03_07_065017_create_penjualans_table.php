@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('penjualan_id');
             $table->date('tanggal_penjualan');
             $table->decimal('total_harga', '10', '2');
+            $table->decimal('bayar', '10', '2')->nullable();
+            $table->decimal('kembalian', '10', '2')->nullable();
             $table->unsignedBigInteger('pelanggan_id');
             $table->foreign('pelanggan_id')->references('pelanggan_id')->on('pelanggans');
 

@@ -31,18 +31,17 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('produk-store') }}" method="POST">
+                        <form action="{{ route('produk-store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Gambar Produk</label>
-                                    <input type="file" name="img-produk" class="form-control" id=""
+                                    <input type="file" name="image" class="form-control" id="img-produk"
                                         placeholder="Input hanya nomber">
-                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Produk</label>
                                     <input type="text" name="nama_produk" class="form-control" id=""
-                                        placeholder="Input hanya nomber">
+                                        placeholder="Masukan Nama Produk">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Harga</label>
@@ -54,14 +53,18 @@
                                     <input type="number" name="stok" class="form-control" id=""
                                         placeholder="Input hanya nomber">
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Deskripsi</label>
+                                    <textarea rows="5" name="deskripsi" class="form-control" id="deskripsi" placeholder="Deskripsi Produk"></textarea>
+                                </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" style="float: left">Submit</button>
                                 <a href="{{ route('produk-admin') }}">
-                                    <button type="button" class="btn btn-danger" style="float: left">Kembali</button>
+                                    <button type="button" class="btn btn-danger" style="float: right">Kembali</button>
                                 </a>
-                                <button type="submit" class="btn btn-primary" style="float: right">Submit</button>
                             </div>
                         </form>
                     </div>
